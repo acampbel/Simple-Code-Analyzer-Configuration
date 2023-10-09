@@ -18,7 +18,7 @@ plan.DefaultTasks = ["lint" "strict_lint"];
 
 end
 
-functions strictConfigTask(~)
+function strictConfigTask(~)
 
 if ~isfolder("resources")
     mkdir("resources");
