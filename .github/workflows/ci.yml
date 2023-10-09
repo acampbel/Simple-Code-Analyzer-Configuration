@@ -1,0 +1,53 @@
+# GitHub Actions Workflow with MATLAB Actions
+
+# Copyright 2021-2023 The MathWorks, Inc.
+
+name: CI using MATLAB
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron:  '55/61 20/25 1/6 * *' # schedule a weekly-ish build
+  workflow_dispatch:
+
+jobs:
+
+  job-build-project:
+    runs-on: ubuntu-latest
+    permissions:
+      # required for sarif upload
+      security-events: write
+      checks: write # required for junit test result publishing
+
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+        
+      - name: Setup MATLAB
+        uses: matlab-actions/setup-matlab@v2-beta
+        with:
+          release: R2023b
+          cache: true
+            
+
+      - name: Run the MATLAB build
+        uses: matlab-actions/run-build@v1
+        continue-on-error: true
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()         
+        with:
+          sarif_file: results/issues.sarif
+          category: matlab-analysis
+
+
+      - name: Upload All Artifacts 
+        if: always() 
+        uses: actions/upload-artifact@v2
+        with:
+          name:  All Artifacts
+          path: results
+
