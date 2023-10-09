@@ -42,7 +42,13 @@ jobs:
         with:
           sarif_file: results/issues.sarif
           category: matlab-analysis
-
+      
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()         
+        with:
+          sarif_file: results/issues-strict.sarif
+          category: matlab-analysis-strict
 
       - name: Upload All Artifacts 
         if: always() 
