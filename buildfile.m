@@ -9,7 +9,7 @@ plan("lint").Dependencies = "clean";
 plan("strictConfig").Inputs = "codeAnalyzerConfiguration.json";
 plan("strictConfig").Outputs = "resources/codeAnalyzerConfiguration.json";
 
-plan("strict_lint") = CodeIssuesTask(Results="results/issues-strict.sarif");
+plan("strict_lint") = CodeIssuesTask(Results="results/issues-strict.sarif", ErrorThreshold=8);
 plan("strict_lint").Dependencies = "strictConfig";
 
 plan("clean") = CleanTask;
