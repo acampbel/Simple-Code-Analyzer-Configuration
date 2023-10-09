@@ -10,7 +10,7 @@ plan("strictConfig").Inputs = "codeAnalyzerConfiguration.json";
 plan("strictConfig").Outputs = "resources/codeAnalyzerConfiguration.json";
 
 plan("strict_lint") = CodeIssuesTask(Results="results/issues-strict.sarif");
-plna("strict_lint").Dependencies = "strictConfig";
+plan("strict_lint").Dependencies = "strictConfig";
 
 plan("clean") = CleanTask;
 
