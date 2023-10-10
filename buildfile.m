@@ -9,12 +9,12 @@ plan("lint").Dependencies = "clean";
 plan("strictConfig").Inputs = "codeAnalyzerConfiguration.json";
 plan("strictConfig").Outputs = "resources/codeAnalyzerConfiguration.json";
 
-plan("strict_lint") = CodeIssuesTask(Results="results/issues-strict.sarif", ErrorThreshold=8);
-plan("strict_lint").Dependencies = "strictConfig";
+plan("strictLint") = CodeIssuesTask(Results="results/strictIssues.sarif", ErrorThreshold=8);
+plan("strictLint").Dependencies = "strictConfig";
 
 plan("clean") = CleanTask;
 
-plan.DefaultTasks = ["lint" "strict_lint"];
+plan.DefaultTasks = ["lint" "strictLint"];
 
 end
 
